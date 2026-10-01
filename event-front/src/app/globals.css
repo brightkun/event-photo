@@ -1,0 +1,65 @@
+:root {
+  --orange: #ff6b1a;
+  --orange-light: #fff0e3;
+  --bg-warm: #faf7f2;
+  --text: #1c1a17;
+  --text-muted: #7a736b;
+  --border: #d9d4cf;
+  --border-light: #ebe5e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-inter), sans-serif;
+}
+
+body {
+  color: var(--text);
+  background: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  /* 16px и больше, чтобы iOS Safari не увеличивал страницу при фокусе на поле */
+  input {
+    font-size: 16px !important;
+  }
+}

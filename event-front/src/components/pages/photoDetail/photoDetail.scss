@@ -1,0 +1,156 @@
+#photoDetail {
+  height: calc(100vh - 82px);
+  display: flex;
+
+  .state {
+    margin: auto;
+    font-size: 17px;
+    color: var(--text-muted);
+  }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--bg-warm);
+
+    .photo {
+      display: block;
+      max-width: 680px;
+      max-height: min(700px, calc(100vh - 146px));
+      border-radius: 24px;
+    }
+  }
+
+  .side {
+    width: 440px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    background: #fff;
+    border-left: 1px solid var(--border-light);
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--orange);
+        background: var(--orange-light);
+        border-radius: 50%;
+      }
+
+      .meta {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .name {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--text);
+        }
+
+        .time {
+          font-size: 13px;
+          color: var(--text-muted);
+        }
+      }
+
+      .deleteBtn {
+        font-size: 14px;
+        font-weight: 500;
+        color: #e03d33;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+#photoDetail .mobileBar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #photoDetail {
+    height: auto;
+    min-height: 100dvh;
+    flex-direction: column;
+
+    .mobileBar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+
+      .backLink {
+        padding: 0 12px 4px 0;
+        font-size: 36px;
+        line-height: 1;
+        color: var(--text);
+      }
+
+      .mobileDelete {
+        font-size: 14px;
+        font-weight: 500;
+        color: #e03d33;
+      }
+    }
+
+    .stage {
+      flex: none;
+      padding: 0 24px;
+      background: #fff;
+
+      .photo {
+        width: 100%;
+        max-width: none;
+        max-height: 60dvh;
+        object-fit: contain;
+        background: var(--bg-warm);
+        border-radius: 20px;
+      }
+    }
+
+    .side {
+      flex: 1;
+      width: 100%;
+      gap: 16px;
+      padding: 16px 24px calc(24px + env(safe-area-inset-bottom));
+      border-left: none;
+
+      .author {
+        .avatar {
+          width: 36px;
+          height: 36px;
+          font-size: 15px;
+        }
+
+        .meta .name {
+          font-size: 15px;
+        }
+
+        .deleteBtn {
+          display: none;
+        }
+      }
+    }
+  }
+}

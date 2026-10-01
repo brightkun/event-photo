@@ -1,0 +1,121 @@
+.comments {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .list {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+
+    .comment {
+      display: flex;
+      gap: 12px;
+
+      .avatar {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--orange);
+        background: var(--bg-warm);
+        border-radius: 50%;
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+
+        .name {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--text);
+        }
+
+        .text {
+          font-size: 14px;
+          color: var(--text);
+          overflow-wrap: anywhere;
+        }
+      }
+    }
+  }
+
+  .form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 8px 18px;
+    background: var(--bg-warm);
+    border-radius: 26px;
+
+    .input {
+      flex: 1;
+      min-width: 0;
+      font-size: 15px;
+      color: var(--text);
+      background: transparent;
+
+      &::placeholder {
+        color: var(--text-muted);
+      }
+    }
+
+    .sendBtn {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--orange);
+      border-radius: 50%;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .comments {
+    min-height: auto;
+
+    .list {
+      flex: none;
+      gap: 16px;
+      overflow: visible;
+
+      .comment .avatar {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .form {
+      position: sticky;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      margin-top: auto;
+      box-shadow: 0 0 0 12px #fff;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.reactions {
+  display: flex;
+  gap: 8px;
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    .emoji {
+      font-size: 13px;
+    }
+
+    &.active {
+      color: var(--orange);
+      background: var(--orange-light);
+      border-color: var(--orange);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+}
