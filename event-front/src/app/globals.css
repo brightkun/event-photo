@@ -14,7 +14,10 @@
   --danger: #c8362d;
   --cream: #f3ece0;
   --ink-warm: #2a2420;
-  --font-display-serif: var(--font-display), Georgia, "Times New Roman", serif;
+  --ink-soft: #3a322c;
+  --font-heading: var(--font-montserrat), sans-serif;
+  /* Montserrat шире и крупнее по рисунку, чем шрифт, под который задавались размеры заголовков: сжимаем его через x-height */
+  --heading-adjust: 0.38;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --header-h: 64px;
 }
@@ -24,38 +27,40 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --orange: #ff7a33;
-    --orange-light: #3b2414;
-    --bg-warm: #1f1b17;
-    --paper: #151210;
-    --surface: #1d1915;
-    --placeholder: #2a2520;
-    --text: #f1ebe2;
-    --on-ink: #151210;
-    --text-muted: #a49b8f;
-    --border: #3a342d;
-    --border-light: #2b2621;
+    --orange-light: #2b1a0f;
+    --bg-warm: #121212;
+    --paper: #0a0a0a;
+    --surface: #141414;
+    --placeholder: #1f1f1f;
+    --text: #ededed;
+    --on-ink: #0a0a0a;
+    --text-muted: #9b9b9b;
+    --border: #2e2e2e;
+    --border-light: #1e1e1e;
     --danger: #ff7a6b;
-    --cream: #1c1814;
-    --ink-warm: #0c0a08;
+    --cream: #0f0f0f;
+    --ink-warm: #000;
+    --ink-soft: #1a1a1a;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
   --orange: #ff7a33;
-  --orange-light: #3b2414;
-  --bg-warm: #1f1b17;
-  --paper: #151210;
-  --surface: #1d1915;
-  --placeholder: #2a2520;
-  --text: #f1ebe2;
-  --on-ink: #151210;
-  --text-muted: #a49b8f;
-  --border: #3a342d;
-  --border-light: #2b2621;
+  --orange-light: #2b1a0f;
+  --bg-warm: #121212;
+  --paper: #0a0a0a;
+  --surface: #141414;
+  --placeholder: #1f1f1f;
+  --text: #ededed;
+  --on-ink: #0a0a0a;
+  --text-muted: #9b9b9b;
+  --border: #2e2e2e;
+  --border-light: #1e1e1e;
   --danger: #ff7a6b;
-  --cream: #1c1814;
-  --ink-warm: #0c0a08;
+  --cream: #0f0f0f;
+  --ink-warm: #000;
+  --ink-soft: #1a1a1a;
 }
 
 html {
@@ -72,7 +77,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 body {

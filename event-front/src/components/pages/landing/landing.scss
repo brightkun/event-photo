@@ -1,5 +1,4 @@
 #landing {
-  --ink-warm-soft: #3a322c;
   --on-dark: #f3ece0;
   --on-dark-muted: #bdb2a3;
 
@@ -16,10 +15,11 @@
   }
 
   .heading {
-    font-family: var(--font-display-serif);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size-adjust: var(--heading-adjust);
     font-size: 56px;
-    font-weight: 400;
-    line-height: 1.02;
+    line-height: 0.92;
     letter-spacing: -0.01em;
     color: var(--text);
   }
@@ -79,10 +79,11 @@
       gap: 24px;
 
       .title {
-        font-family: var(--font-display-serif);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size-adjust: var(--heading-adjust);
         font-size: 88px;
-        font-weight: 400;
-        line-height: 0.98;
+        line-height: 0.92;
         letter-spacing: -0.015em;
         color: var(--text);
 
@@ -153,6 +154,7 @@
         background: var(--ink-warm);
         border-radius: 38px;
         box-shadow: 0 24px 48px -16px rgba(42, 36, 32, 0.35);
+        outline: 1px solid var(--border-light);
         transform: rotate(2deg);
 
         .screen {
@@ -167,9 +169,11 @@
             padding: 0 4px 14px;
 
             .wallTitle {
-              font-family: var(--font-display-serif);
+              font-family: var(--font-heading);
+              font-weight: 700;
+              font-size-adjust: var(--heading-adjust);
               font-size: 26px;
-              line-height: 1;
+              line-height: 0.92;
               color: var(--text);
             }
 
@@ -269,7 +273,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-display-serif);
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size-adjust: var(--heading-adjust);
           font-size: 16px;
           background: var(--cream);
           border-radius: 50%;
@@ -327,10 +333,11 @@
 
         .occasionTitle {
           margin-bottom: 10px;
-          font-family: var(--font-display-serif);
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size-adjust: var(--heading-adjust);
           font-size: 30px;
-          font-weight: 400;
-          line-height: 1.1;
+          line-height: 0.92;
           color: var(--text);
         }
 
@@ -373,9 +380,11 @@
         border-top: 1px solid rgba(243, 236, 224, 0.2);
 
         .num {
-          font-family: var(--font-display-serif);
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size-adjust: var(--heading-adjust);
           font-size: 56px;
-          line-height: 1;
+          line-height: 0.92;
           color: var(--orange);
         }
 
@@ -399,7 +408,7 @@
           font-weight: 600;
           letter-spacing: 0.04em;
           color: var(--on-dark);
-          background: var(--ink-warm-soft);
+          background: var(--ink-soft);
           border-radius: 100px;
         }
       }
@@ -431,10 +440,11 @@
       }
 
       .sideTitle {
-        font-family: var(--font-display-serif);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size-adjust: var(--heading-adjust);
         font-size: 40px;
-        font-weight: 400;
-        line-height: 1;
+        line-height: 0.92;
         color: var(--text);
       }
 
@@ -508,7 +518,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-display-serif);
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size-adjust: var(--heading-adjust);
           font-size: 20px;
           background: var(--cream);
           border-radius: 50%;
@@ -602,10 +614,11 @@
 
     .ctaTitle {
       max-width: 720px;
-      font-family: var(--font-display-serif);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size-adjust: var(--heading-adjust);
       font-size: 64px;
-      font-weight: 400;
-      line-height: 1;
+      line-height: 0.92;
       color: var(--text);
     }
 
@@ -627,7 +640,9 @@
     color: var(--text-muted);
 
     .brand {
-      font-family: var(--font-display-serif);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size-adjust: var(--heading-adjust);
       font-size: 20px;
       color: var(--text);
     }

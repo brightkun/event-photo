@@ -27,9 +27,11 @@
     }
 
     .name {
-      font-family: var(--font-display-serif);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size-adjust: var(--heading-adjust);
       font-size: 24px;
-      line-height: 1;
+      line-height: 0.92;
       color: var(--text);
     }
   }

@@ -32,10 +32,11 @@
       }
 
       .title {
-        font-family: var(--font-display-serif);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size-adjust: var(--heading-adjust);
         font-size: 40px;
-        font-weight: 400;
-        line-height: 1.05;
+        line-height: 0.92;
         color: var(--text);
       }
 

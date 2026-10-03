@@ -29,7 +29,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: var(--font-display-serif);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size-adjust: var(--heading-adjust);
         font-size: 22px;
         color: var(--text);
         background: var(--bg-warm);
