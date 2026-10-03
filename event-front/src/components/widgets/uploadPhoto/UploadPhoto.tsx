@@ -1,6 +1,7 @@
 "use client";
 
 import { usePostPhoto } from "@/components/hooks/photos/usePostPhoto";
+import { useT } from "@/components/i18n/useT";
 import { useGuestStore } from "@/components/store/useGuestStore";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef, useState } from "react";
@@ -17,9 +18,10 @@ const UploadPhoto = ({
   slug,
   className,
   children,
-  busyLabel = "Uploading...",
-  failedLabel = "Upload failed",
+  busyLabel,
+  failedLabel,
 }: IProps) => {
+  const { t } = useT();
   const { push } = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const guest = useGuestStore((state) => state.guests[slug]);
@@ -55,7 +57,11 @@ const UploadPhoto = ({
   return (
     <>
       <button className={className} onClick={onClick} disabled={isPending}>
-        {isPending ? busyLabel : failed ? failedLabel : children}
+        {isPending
+          ? (busyLabel ?? t.header.uploading)
+          : failed
+            ? (failedLabel ?? t.header.uploadFailed)
+            : children}
       </button>
       <input
         ref={inputRef}

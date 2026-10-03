@@ -1,3 +1,6 @@
+"use client";
+
+import { useT } from "@/components/i18n/useT";
 import UploadPhoto from "../uploadPhoto/UploadPhoto";
 import "./emptyFeed.scss";
 
@@ -6,12 +9,14 @@ interface IProps {
 }
 
 const EmptyFeed = ({ slug }: IProps) => {
+  const { t } = useT();
+
   return (
     <div className="emptyFeed">
-      <h2 className="title">Be the first to add a photo</h2>
-      <p className="text">Photos you upload show up here for everyone, live.</p>
+      <h2 className="title">{t.feed.emptyTitle}</h2>
+      <p className="text">{t.feed.emptyText}</p>
       <UploadPhoto slug={slug} className="addBtn">
-        Add photo
+        {t.feed.addPhoto}
       </UploadPhoto>
     </div>
   );

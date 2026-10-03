@@ -2,31 +2,41 @@
 
 import { useGetEvent } from "@/components/hooks/events/useGetEvent";
 import { usePostGuest } from "@/components/hooks/guests/usePostGuest";
+import { useT } from "@/components/i18n/useT";
 import { useGuestStore } from "@/components/store/useGuestStore";
 import { formatDate } from "@/components/utils/formatDate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import "./guestJoin.scss";
-
-const schema = z.object({
-  name: z.string().trim().min(1, "Enter your name").max(50, "Name is too long"),
-});
-
-type FormValues = z.infer<typeof schema>;
 
 interface IProps {
   slug: string;
 }
 
 const GuestJoin = ({ slug }: IProps) => {
+  const { t, lang } = useT();
   const { push } = useRouter();
   const { data: event, isLoading, isError } = useGetEvent(slug);
   const { mutate, isPending, isError: isPostError } = usePostGuest();
   const guest = useGuestStore((state) => state.guests[slug]);
   const setGuest = useGuestStore((state) => state.setGuest);
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z
+          .string()
+          .trim()
+          .min(1, t.join.nameRequired)
+          .max(50, t.join.nameLong),
+      }),
+    [t],
+  );
+
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
@@ -62,7 +72,7 @@ const GuestJoin = ({ slug }: IProps) => {
   if (isLoading) {
     return (
       <section id="guestJoin">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -70,7 +80,7 @@ const GuestJoin = ({ slug }: IProps) => {
   if (isError || !event) {
     return (
       <section id="guestJoin">
-        <p className="state">Event is not found</p>
+        <p className="state">{t.common.eventNotFound}</p>
       </section>
     );
   }
@@ -80,32 +90,32 @@ const GuestJoin = ({ slug }: IProps) => {
       <form className="joinCard" onSubmit={handleSubmit(onSubmit)}>
 
         <div className="eventInfo">
-          <span className="invited">You are invited to</span>
+          <span className="invited">{t.join.invited}</span>
           <h1 className="title">{event.name}</h1>
           <p className="details">
-            {formatDate(event.date)} · {event.location}
+            {formatDate(event.date, lang)} · {event.location}
           </p>
         </div>
 
         <div className="field">
-          <label>Your name</label>
+          <label>{t.join.yourName}</label>
           <input
             className="input"
             type="text"
-            placeholder="Enter your name"
+            placeholder={t.join.namePlaceholder}
             {...register("name")}
           />
           {errors.name && <span className="error">{errors.name.message}</span>}
         </div>
 
         <button className="submitBtn" type="submit" disabled={isPending}>
-          {isPending ? "Joining..." : "Continue"}
+          {isPending ? t.join.submitting : t.join.submit}
         </button>
         {isPostError && (
-          <span className="error center">Something went wrong, try again</span>
+          <span className="error center">{t.common.somethingWrong}</span>
         )}
 
-        <p className="note">No account needed</p>
+        <p className="note">{t.join.note}</p>
       </form>
     </section>
   );

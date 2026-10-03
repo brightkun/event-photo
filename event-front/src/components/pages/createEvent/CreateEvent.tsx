@@ -2,28 +2,35 @@
 
 import { useRequireUser } from "@/components/hooks/auth/useRequireUser";
 import { usePostEvent } from "@/components/hooks/events/usePostEvent";
+import { useT } from "@/components/i18n/useT";
 import { useOrigin } from "@/components/utils/config";
 import { formatDate } from "@/components/utils/formatDate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import "./createEvent.scss";
 
-const schema = z.object({
-  name: z.string().trim().min(1, "Enter event name"),
-  date: z.string().min(1, "Choose a date"),
-  location: z.string().trim().min(1, "Enter location"),
-});
-
-type FormValues = z.infer<typeof schema>;
-
 const CreateEvent = () => {
+  const { t, lang } = useT();
   const { push } = useRouter();
   const origin = useOrigin();
   const { isLoading } = useRequireUser();
   const { mutate, isPending, isError } = usePostEvent();
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z.string().trim().min(1, t.create.nameRequired),
+        date: z.string().min(1, t.create.dateRequired),
+        location: z.string().trim().min(1, t.create.locationRequired),
+      }),
+    [t],
+  );
+
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
@@ -36,7 +43,7 @@ const CreateEvent = () => {
   });
 
   const values = watch();
-  const info = [formatDate(values.date), values.location]
+  const info = [formatDate(values.date, lang), values.location]
     .filter(Boolean)
     .join(" · ");
 
@@ -49,7 +56,7 @@ const CreateEvent = () => {
   if (isLoading) {
     return (
       <section id="createEvent">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -59,34 +66,32 @@ const CreateEvent = () => {
       <div className="createEvent">
         <div className="formSide">
           <form className="form" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="title">Create your event</h1>
-            <p className="subtitle">
-              Get a QR code. Guests scan it and share photos in one live feed.
-            </p>
+            <h1 className="title">{t.create.title}</h1>
+            <p className="subtitle">{t.create.subtitle}</p>
 
             <div className="field">
-              <label>Event name</label>
+              <label>{t.create.name}</label>
               <input
                 className="input"
                 type="text"
-                placeholder="Anna & Timur Wedding"
+                placeholder={t.create.namePlaceholder}
                 {...register("name")}
               />
               {errors.name && <span className="error">{errors.name.message}</span>}
             </div>
 
             <div className="field">
-              <label>Date</label>
+              <label>{t.create.date}</label>
               <input className="input" type="date" {...register("date")} />
               {errors.date && <span className="error">{errors.date.message}</span>}
             </div>
 
             <div className="field">
-              <label>Location</label>
+              <label>{t.create.location}</label>
               <input
                 className="input"
                 type="text"
-                placeholder="Bishkek"
+                placeholder={t.create.locationPlaceholder}
                 {...register("location")}
               />
               {errors.location && (
@@ -95,26 +100,26 @@ const CreateEvent = () => {
             </div>
 
             <button className="submitBtn" type="submit" disabled={isPending}>
-              {isPending ? "Generating..." : "Generate QR"}
+              {isPending ? t.create.submitting : t.create.submit}
             </button>
             {isError && (
-              <span className="error">Something went wrong, try again</span>
+              <span className="error">{t.common.somethingWrong}</span>
             )}
           </form>
         </div>
 
         <div className="previewSide">
           <div className="previewCard">
-            <span className="badge">Live preview</span>
+            <span className="badge">{t.create.previewBadge}</span>
             <h2 className="previewTitle">
-              {values.name.trim() || "Your event name"}
+              {values.name.trim() || t.create.previewName}
             </h2>
-            <p className="previewInfo">{info || "Date · Location"}</p>
+            <p className="previewInfo">{info || t.create.previewInfo}</p>
             <div className="qrWrap">
               {origin && (
                 <QRCodeSVG
                   value={`${origin}/join/preview`}
-                  size={231}
+                  size={203}
                   level="M"
                   marginSize={0}
                   fgColor="#1c1a17"

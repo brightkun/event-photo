@@ -3,6 +3,7 @@
 import { useGetEvent } from "@/components/hooks/events/useGetEvent";
 import { useGetPhotos } from "@/components/hooks/photos/useGetPhotos";
 import { useRealtime } from "@/components/hooks/realtime/useRealtime";
+import { useT } from "@/components/i18n/useT";
 import { formatStats } from "@/components/utils/formatStats";
 import EmptyFeed from "@/components/widgets/emptyFeed/EmptyFeed";
 import PhotoCard from "@/components/widgets/photoCard/PhotoCard";
@@ -15,6 +16,7 @@ interface IProps {
 
 
 const PhotoFeed = ({ slug }: IProps) => {
+  const { t, lang } = useT();
   useRealtime(slug);
 
   const { data: event, isLoading: isEventLoading, isError } = useGetEvent(slug);
@@ -23,7 +25,7 @@ const PhotoFeed = ({ slug }: IProps) => {
   if (isError || isPhotosError) {
     return (
       <section id="photoFeed">
-        <p className="state">Event is not found</p>
+        <p className="state">{t.common.eventNotFound}</p>
       </section>
     );
   }
@@ -31,7 +33,7 @@ const PhotoFeed = ({ slug }: IProps) => {
   if (isEventLoading || !event || !photos) {
     return (
       <section id="photoFeed">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -52,10 +54,10 @@ const PhotoFeed = ({ slug }: IProps) => {
           <p className="meta">
             <span className="live">
               <span className="dot" />
-              Live
+              {t.feed.live}
             </span>
             <span className="stats">
-              {formatStats(event.photos_count, event.guests_count)}
+              {formatStats(event.photos_count, event.guests_count, lang)}
             </span>
           </p>
         </div>
@@ -70,10 +72,10 @@ const PhotoFeed = ({ slug }: IProps) => {
       <UploadPhoto
         slug={slug}
         className="fab"
-        busyLabel="Uploading…"
-        failedLabel="Failed"
+        busyLabel={t.feed.uploading}
+        failedLabel={t.feed.failed}
       >
-        Add photo
+        {t.feed.addPhoto}
       </UploadPhoto>
     </section>
   );

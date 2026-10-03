@@ -1,6 +1,4 @@
 #landing {
-  --cream: #f3ece0;
-  --ink-warm: #2a2420;
   --ink-warm-soft: #3a322c;
   --on-dark: #f3ece0;
   --on-dark-muted: #bdb2a3;
@@ -47,8 +45,8 @@
     padding: 16px 28px;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
-    background: var(--ink-warm);
+    color: var(--on-ink);
+    background: var(--text);
     border-radius: 4px;
     transition:
       background 0.2s var(--ease),
@@ -261,7 +259,7 @@
         padding: 10px 16px 10px 10px;
         font-size: 13px;
         color: var(--text);
-        background: #fff;
+        background: var(--surface);
         border-radius: 100px;
         box-shadow: 0 10px 28px -10px rgba(42, 36, 32, 0.3);
 
@@ -299,7 +297,7 @@
           font-weight: 700;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: var(--text-muted);
+          color: #7a736b;
         }
       }
     }
@@ -424,7 +422,7 @@
       border-radius: 8px;
 
       &:first-child {
-        background: #fff;
+        background: var(--surface);
       }
 
       &:last-child {

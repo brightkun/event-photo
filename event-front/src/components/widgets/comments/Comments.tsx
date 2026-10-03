@@ -3,6 +3,7 @@
 import { useGetComments } from "@/components/hooks/comments/useGetComments";
 import { usePostComment } from "@/components/hooks/comments/usePostComment";
 import { useGuest } from "@/components/hooks/guests/useGuest";
+import { useT } from "@/components/i18n/useT";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import "./comments.scss";
 
@@ -13,6 +14,7 @@ interface IProps {
 
 
 const Comments = ({ slug, photoId }: IProps) => {
+  const { t } = useT();
   const { guest, requireGuest } = useGuest(slug);
   const { data: comments = [] } = useGetComments(slug, photoId);
   const { mutate, isPending } = usePostComment();
@@ -39,7 +41,7 @@ const Comments = ({ slug, photoId }: IProps) => {
 
   return (
     <div className="comments">
-      <h3 className="title">Comments · {comments.length}</h3>
+      <h3 className="title">{t.photo.comments} · {comments.length}</h3>
 
       <div className="list" ref={listRef}>
         {comments.map((comment) => (
@@ -57,7 +59,7 @@ const Comments = ({ slug, photoId }: IProps) => {
         <input
           className="input"
           type="text"
-          placeholder="Add a comment..."
+          placeholder={t.photo.commentPlaceholder}
           maxLength={500}
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -69,12 +71,12 @@ const Comments = ({ slug, photoId }: IProps) => {
           className="sendBtn"
           type="submit"
           disabled={isPending || !text.trim()}
-          aria-label="Send comment"
+          aria-label={t.photo.send}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path
               d="M12 19V5M5 12l7-7 7 7"
-              stroke="#fff"
+              stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -60,7 +60,7 @@
         padding: 16px 20px;
         font-size: 16px;
         font-weight: 600;
-        color: #fff;
+        color: var(--on-ink);
         background: var(--text);
         border-radius: 4px;
         transition: background 0.2s var(--ease);
@@ -178,7 +178,7 @@
   padding: 10px 14px;
   font-size: 13px;
   line-height: 1.4;
-  color: #b4470f;
+  color: var(--text);
   background: var(--orange-light);
   border-radius: 4px;
 }

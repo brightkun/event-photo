@@ -56,7 +56,7 @@
       padding: 12px 20px;
       font-size: 14px;
       font-weight: 600;
-      color: #fff;
+      color: var(--on-ink);
       background: var(--text);
       border-radius: 4px;
       transition: background 0.2s var(--ease);
@@ -149,7 +149,7 @@
             transition: color 0.2s var(--ease);
 
             &:hover:not(:disabled) {
-              color: #c8362d;
+              color: var(--danger);
             }
 
             &:disabled {

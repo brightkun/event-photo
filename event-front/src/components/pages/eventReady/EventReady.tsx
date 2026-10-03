@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetEvent } from "@/components/hooks/events/useGetEvent";
+import { useT } from "@/components/i18n/useT";
 import { useOrigin } from "@/components/utils/config";
 import { formatDate } from "@/components/utils/formatDate";
 import { useRouter } from "next/navigation";
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const EventReady = ({ slug }: IProps) => {
+  const { t, lang } = useT();
   const { push } = useRouter();
   const origin = useOrigin();
   const { data: event, isLoading, isError } = useGetEvent(slug);
@@ -49,7 +51,7 @@ const EventReady = ({ slug }: IProps) => {
   if (isLoading) {
     return (
       <section id="eventReady">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -57,7 +59,7 @@ const EventReady = ({ slug }: IProps) => {
   if (isError || !event) {
     return (
       <section id="eventReady">
-        <p className="state">Event is not found</p>
+        <p className="state">{t.common.eventNotFound}</p>
       </section>
     );
   }
@@ -66,36 +68,29 @@ const EventReady = ({ slug }: IProps) => {
     <section id="eventReady">
       <div className="eventReady">
         <div className="info">
-          <span className="badge">Event ready</span>
+          <span className="badge">{t.ready.badge}</span>
           <h1 className="title">{event.name}</h1>
           <p className="details">
-            {formatDate(event.date)} · {event.location}
+            {formatDate(event.date, lang)} · {event.location}
           </p>
-          <p className="hint">
-            Guests scan this code to join. No app, no account.
-          </p>
-          {isLocal && (
-            <p className="warning">
-              This page is open on localhost, so phones can&apos;t open this
-              QR. Open the site by your public link and create the event again.
-            </p>
-          )}
+          <p className="hint">{t.ready.hint}</p>
+          {isLocal && <p className="warning">{t.ready.localWarning}</p>}
 
           <div className="actions">
             <button className="primaryBtn" onClick={downloadQr}>
-              Download QR
+              {t.ready.downloadQr}
             </button>
             <div className="secondary">
               <button className="secondaryBtn" onClick={copyLink}>
-                {copyState === "copied" && "Copied!"}
-                {copyState === "failed" && "Copy failed"}
-                {copyState === "idle" && "Copy link"}
+                {copyState === "copied" && t.ready.copied}
+                {copyState === "failed" && t.ready.copyFailed}
+                {copyState === "idle" && t.ready.copyLink}
               </button>
               <button
                 className="secondaryBtn"
                 onClick={() => push(`/events/${slug}`)}
               >
-                Open wall
+                {t.ready.openWall}
               </button>
             </div>
           </div>

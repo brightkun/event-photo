@@ -6,6 +6,13 @@
   padding: 0 64px;
   border-bottom: 1px solid var(--border-light);
   background: var(--paper);
+  transition: background 0.25s var(--ease);
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
 
   .logo {
     display: flex;
@@ -63,7 +70,7 @@
     .startBtn {
       padding: 10px 18px;
       font-weight: 600;
-      color: #fff;
+      color: var(--on-ink);
       background: var(--text);
       border-radius: 4px;
       transition: background 0.2s var(--ease);
@@ -84,12 +91,13 @@
       padding: 10px 18px;
       font-size: 14px;
       font-weight: 600;
-      color: #fff;
+      color: var(--on-ink);
       background: var(--text);
       border-radius: 4px;
       transition: background 0.2s var(--ease);
 
       &:hover {
+        color: #fff;
         background: var(--orange);
       }
 
@@ -103,16 +111,35 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 0 20px;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--header-h);
+    padding: 10px 20px;
+    row-gap: 8px;
     border-bottom: none;
+
+    /* На телефоне логотип и переключатели в первой строке, меню ссылок во второй */
+    .right {
+      display: contents;
+    }
+
+    .logo {
+      order: 1;
+    }
+
+    .settingsControls {
+      order: 2;
+    }
 
     .logo .name {
       font-size: 22px;
     }
 
     .nav {
-      gap: 16px;
-      font-size: 13px;
+      order: 3;
+      flex-basis: 100%;
+      gap: 20px;
+      font-size: 14px;
 
       .startBtn {
         padding: 9px 14px;

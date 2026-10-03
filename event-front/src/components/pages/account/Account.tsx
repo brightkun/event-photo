@@ -3,18 +3,20 @@
 import { useRequireUser } from "@/components/hooks/auth/useRequireUser";
 import { useDeleteEvent } from "@/components/hooks/events/useDeleteEvent";
 import { useGetMyEvents } from "@/components/hooks/events/useGetMyEvents";
+import { useT } from "@/components/i18n/useT";
 import { formatDate } from "@/components/utils/formatDate";
 import { formatStats } from "@/components/utils/formatStats";
 import Link from "next/link";
 import "./account.scss";
 
 const Account = () => {
+  const { t, lang } = useT();
   const { user, isLoading } = useRequireUser();
   const { data: events, isError } = useGetMyEvents(!!user);
   const { mutate, isPending } = useDeleteEvent();
 
   const onDelete = (slug: string, name: string) => {
-    if (!window.confirm(`Delete "${name}" with all its photos?`)) return;
+    if (!window.confirm(t.account.deleteConfirm(name))) return;
 
     mutate(slug);
   };
@@ -22,7 +24,7 @@ const Account = () => {
   if (isLoading || !user) {
     return (
       <section id="account">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -34,25 +36,24 @@ const Account = () => {
           <div className="heading">
             <p className="hello">
               {user.name}
-              {user.role === "admin" && <span className="role">Admin</span>}
+              {user.role === "admin" && (
+                <span className="role">{t.common.admin}</span>
+              )}
             </p>
-            <h1 className="title">My events</h1>
+            <h1 className="title">{t.account.title}</h1>
           </div>
           <Link href="/create" className="newBtn">
-            New event
+            {t.account.newEvent}
           </Link>
         </div>
 
-        {isError && <p className="state">Could not load your events</p>}
+        {isError && <p className="state">{t.account.loadError}</p>}
 
         {events && events.length === 0 && (
           <div className="empty">
-            <p className="text">
-              You have no events yet. Create one and get a QR code for your
-              guests.
-            </p>
+            <p className="text">{t.account.empty}</p>
             <Link href="/create" className="newBtn">
-              Create your first event
+              {t.account.createFirst}
             </Link>
           </div>
         )}
@@ -66,22 +67,24 @@ const Account = () => {
                     {event.name}
                   </Link>
                   <span className="details">
-                    {formatDate(event.date)} · {event.location}
+                    {formatDate(event.date, lang)} · {event.location}
                   </span>
                   <span className="stats">
-                    {formatStats(event.photos_count, event.guests_count)}
+                    {formatStats(event.photos_count, event.guests_count, lang)}
                   </span>
                 </div>
 
                 <div className="actions">
-                  <Link href={`/events/${event.slug}`}>Open wall</Link>
-                  <Link href={`/events/${event.slug}/ready`}>QR code</Link>
+                  <Link href={`/events/${event.slug}`}>{t.account.openWall}</Link>
+                  <Link href={`/events/${event.slug}/ready`}>
+                    {t.account.qrCode}
+                  </Link>
                   <button
                     className="delete"
                     onClick={() => onDelete(event.slug, event.name)}
                     disabled={isPending}
                   >
-                    Delete
+                    {t.common.delete}
                   </button>
                 </div>
               </li>

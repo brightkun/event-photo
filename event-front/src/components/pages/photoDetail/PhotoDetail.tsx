@@ -5,6 +5,7 @@ import { useDeletePhoto } from "@/components/hooks/photos/useDeletePhoto";
 import { useGetPhoto } from "@/components/hooks/photos/useGetPhoto";
 import { useGetPhotos } from "@/components/hooks/photos/useGetPhotos";
 import { useRealtime } from "@/components/hooks/realtime/useRealtime";
+import { useT } from "@/components/i18n/useT";
 import { timeAgo } from "@/components/utils/timeAgo";
 import Comments from "@/components/widgets/comments/Comments";
 import PhotoCarousel, {
@@ -23,6 +24,7 @@ interface IProps {
 
 
 const PhotoDetail = ({ slug, photoId }: IProps) => {
+  const { t, lang } = useT();
   useRealtime(slug);
   const { push } = useRouter();
   const { guest } = useGuest(slug);
@@ -36,7 +38,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
   const { mutate, isPending } = useDeletePhoto();
 
   const onDelete = () => {
-    if (!photo?.is_owner || !window.confirm("Delete this photo?")) return;
+    if (!photo?.is_owner || !window.confirm(t.photo.deleteConfirm)) return;
 
     mutate(
       { slug, photoId: String(currentId), token: guest?.token },
@@ -53,7 +55,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
   if (isError || isPhotosError) {
     return (
       <section id="photoDetail">
-        <p className="state">Photo is not found</p>
+        <p className="state">{t.common.photoNotFound}</p>
       </section>
     );
   }
@@ -61,7 +63,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
   if (!photos || (isLoading && !photos.some((item) => item.id === currentId))) {
     return (
       <section id="photoDetail">
-        <p className="state">Loading...</p>
+        <p className="state">{t.common.loading}</p>
       </section>
     );
   }
@@ -69,7 +71,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
   const slides: ISlide[] = photos.map((item) => ({
     id: item.id,
     url: item.url,
-    alt: `Photo by ${item.guest_name}`,
+    alt: t.feed.photoBy(item.guest_name),
   }));
 
   // Если фото нет в общем списке (например, только что удалили соседнее), показываем одно
@@ -77,7 +79,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
     slides.push({
       id: photo.id,
       url: photo.url,
-      alt: `Photo by ${photo.guest_name}`,
+      alt: t.feed.photoBy(photo.guest_name),
     });
   }
 
@@ -89,7 +91,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
         <Link
           href={`/events/${slug}`}
           className="backLink"
-          aria-label="Back to wall"
+          aria-label={t.photo.back}
         >
           ‹
         </Link>
@@ -99,7 +101,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
             onClick={onDelete}
             disabled={isPending}
           >
-            Delete
+            {t.common.delete}
           </button>
         )}
       </div>
@@ -116,7 +118,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
             <div className="avatar">{author.guest_name[0]?.toUpperCase()}</div>
             <div className="meta">
               <span className="name">{author.guest_name}</span>
-              <span className="time">{timeAgo(author.created_at)}</span>
+              <span className="time">{timeAgo(author.created_at, lang)}</span>
             </div>
             {photo?.is_owner && (
               <button
@@ -124,7 +126,7 @@ const PhotoDetail = ({ slug, photoId }: IProps) => {
                 onClick={onDelete}
                 disabled={isPending}
               >
-                Delete
+                {t.common.delete}
               </button>
             )}
           </div>

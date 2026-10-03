@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/components/i18n/useT";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import "./photoCarousel.scss";
 
@@ -18,6 +19,7 @@ interface IProps {
 // Лента фото со свайпом: браузер сам «примагничивает» кадр (scroll-snap),
 // а выбранное фото сообщаем наверх, когда прокрутка остановилась.
 const PhotoCarousel = ({ slides, currentId, onChange }: IProps) => {
+  const { t } = useT();
   const trackRef = useRef<HTMLDivElement>(null);
   const settledRef = useRef(-1);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -96,7 +98,7 @@ const PhotoCarousel = ({ slides, currentId, onChange }: IProps) => {
         onScroll={onScroll}
         role="region"
         aria-roledescription="carousel"
-        aria-label="Photos"
+        aria-label={t.photo.carousel}
       >
         {slides.map((slide, i) => (
           <div className="slide" key={slide.id}>
@@ -117,7 +119,7 @@ const PhotoCarousel = ({ slides, currentId, onChange }: IProps) => {
             className="arrow prev"
             onClick={() => go(-1)}
             disabled={index === 0}
-            aria-label="Previous photo"
+            aria-label={t.photo.prev}
           >
             ‹
           </button>
@@ -125,7 +127,7 @@ const PhotoCarousel = ({ slides, currentId, onChange }: IProps) => {
             className="arrow next"
             onClick={() => go(1)}
             disabled={index === slides.length - 1}
-            aria-label="Next photo"
+            aria-label={t.photo.next}
           >
             ›
           </button>

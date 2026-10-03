@@ -152,7 +152,7 @@
           transition: color 0.2s var(--ease);
 
           &:hover:not(:disabled) {
-            color: #c8362d;
+            color: var(--danger);
           }
 
           &:disabled {

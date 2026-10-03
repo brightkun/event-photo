@@ -55,7 +55,7 @@
           padding: 14px 16px;
           font-size: 16px;
           color: var(--text);
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 4px;
 
@@ -71,14 +71,14 @@
 
       .error {
         font-size: 13px;
-        color: #e5352b;
+        color: var(--danger);
       }
 
       .submitBtn {
         padding: 16px 20px;
         font-size: 16px;
         font-weight: 600;
-        color: #fff;
+        color: var(--on-ink);
         background: var(--text);
         border-radius: 4px;
         transition: background 0.2s var(--ease);
@@ -136,10 +136,10 @@
       }
 
       .qrWrap {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 8px 0;
+        align-self: center;
+        padding: 14px;
+        background: #fff; /* QR всегда на белом, иначе в тёмной теме его не прочитает камера */
+        border-radius: 6px;
       }
     }
   }

@@ -1,16 +1,61 @@
 :root {
+  color-scheme: light;
   --orange: #ff6b1a;
   --orange-light: #fff0e3;
   --bg-warm: #f5f1ea;
   --paper: #fbf9f5;
+  --surface: #fff;
   --placeholder: #e6e0d5;
   --text: #1c1a17;
+  --on-ink: #fff;
   --text-muted: #7a736b;
   --border: #d9d4cf;
   --border-light: #ebe5e0;
-  --font-display-serif: var(--font-display), Georgia, serif;
+  --danger: #c8362d;
+  --cream: #f3ece0;
+  --ink-warm: #2a2420;
+  --font-display-serif: var(--font-display), Georgia, "Times New Roman", serif;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --header-h: 64px;
+}
+
+/* Тёмная тема: по выбору в шапке (data-theme="dark") или, пока выбора нет, по настройке системы */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --orange: #ff7a33;
+    --orange-light: #3b2414;
+    --bg-warm: #1f1b17;
+    --paper: #151210;
+    --surface: #1d1915;
+    --placeholder: #2a2520;
+    --text: #f1ebe2;
+    --on-ink: #151210;
+    --text-muted: #a49b8f;
+    --border: #3a342d;
+    --border-light: #2b2621;
+    --danger: #ff7a6b;
+    --cream: #1c1814;
+    --ink-warm: #0c0a08;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --orange: #ff7a33;
+  --orange-light: #3b2414;
+  --bg-warm: #1f1b17;
+  --paper: #151210;
+  --surface: #1d1915;
+  --placeholder: #2a2520;
+  --text: #f1ebe2;
+  --on-ink: #151210;
+  --text-muted: #a49b8f;
+  --border: #3a342d;
+  --border-light: #2b2621;
+  --danger: #ff7a6b;
+  --cream: #1c1814;
+  --ink-warm: #0c0a08;
 }
 
 html {
@@ -33,6 +78,9 @@ html {
 body {
   color: var(--text);
   background: var(--paper);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
 }
 
 a {
