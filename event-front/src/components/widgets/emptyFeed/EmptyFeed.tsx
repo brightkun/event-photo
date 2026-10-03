@@ -8,7 +8,6 @@ interface IProps {
 const EmptyFeed = ({ slug }: IProps) => {
   return (
     <div className="emptyFeed">
-      <div className="icon">📷</div>
       <h2 className="title">Be the first to add a photo</h2>
       <p className="text">Photos you upload show up here for everyone, live.</p>
       <UploadPhoto slug={slug} className="addBtn">

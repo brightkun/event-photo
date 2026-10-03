@@ -49,12 +49,14 @@ const PhotoFeed = ({ slug }: IProps) => {
       <div className="photoFeed">
         <div className="top">
           <h1 className="title">{event.name}</h1>
-          <p className="live">
-            <span className="dot" />
-            Live · new photos appear automatically
-          </p>
-          <p className="stats">
-            {formatStats(event.photos_count, event.guests_count)}
+          <p className="meta">
+            <span className="live">
+              <span className="dot" />
+              Live
+            </span>
+            <span className="stats">
+              {formatStats(event.photos_count, event.guests_count)}
+            </span>
           </p>
         </div>
 
@@ -65,8 +67,13 @@ const PhotoFeed = ({ slug }: IProps) => {
         </div>
       </div>
 
-      <UploadPhoto slug={slug} className="fab" busyLabel="…" failedLabel="!">
-        +
+      <UploadPhoto
+        slug={slug}
+        className="fab"
+        busyLabel="Uploading…"
+        failedLabel="Failed"
+      >
+        Add photo
       </UploadPhoto>
     </section>
   );

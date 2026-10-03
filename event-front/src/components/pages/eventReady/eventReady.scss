@@ -23,17 +23,18 @@
     gap: 16px;
 
     .badge {
-      padding: 4px 10px;
       font-size: 12px;
       font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--orange);
-      background: var(--orange-light);
-      border-radius: 12px;
     }
 
     .title {
-      font-size: 44px;
-      font-weight: 700;
+      font-family: var(--font-display-serif);
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1;
       color: var(--text);
     }
 
@@ -56,12 +57,17 @@
 
       .primaryBtn {
         width: 100%;
-        padding: 17px 20px;
+        padding: 16px 20px;
         font-size: 16px;
         font-weight: 600;
         color: #fff;
-        background: var(--orange);
-        border-radius: 16px;
+        background: var(--text);
+        border-radius: 4px;
+        transition: background 0.2s var(--ease);
+
+        &:hover {
+          background: var(--orange);
+        }
       }
 
       .secondary {
@@ -70,13 +76,18 @@
 
         .secondaryBtn {
           flex: 1;
-          padding: 17px 20px;
+          padding: 16px 20px;
           font-size: 16px;
           font-weight: 600;
           color: var(--text);
-          background: #fff;
+          background: transparent;
           border: 1px solid var(--border);
-          border-radius: 16px;
+          border-radius: 4px;
+          transition: border-color 0.2s var(--ease);
+
+          &:hover {
+            border-color: var(--text);
+          }
         }
       }
     }
@@ -88,8 +99,7 @@
     padding: 40px;
     background: #fff;
     border: 1px solid var(--border-light);
-    border-radius: 32px;
-    box-shadow: 0 12px 32px rgba(51, 26, 0, 0.08);
+    border-radius: 6px;
 
     canvas {
       display: block;
@@ -123,7 +133,7 @@
 
       .title {
         order: 1;
-        font-size: 28px;
+        font-size: 44px;
         margin-bottom: 8px;
       }
 
@@ -154,7 +164,7 @@
       width: 268px;
       height: 268px;
       padding: 29px;
-      border-radius: 28px;
+      border-radius: 6px;
 
       canvas {
         width: 210px !important;
@@ -170,7 +180,7 @@
   line-height: 1.4;
   color: #b4470f;
   background: var(--orange-light);
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRequireUser } from "@/components/hooks/auth/useRequireUser";
 import { usePostEvent } from "@/components/hooks/events/usePostEvent";
 import { useOrigin } from "@/components/utils/config";
 import { formatDate } from "@/components/utils/formatDate";
@@ -21,6 +22,7 @@ type FormValues = z.infer<typeof schema>;
 const CreateEvent = () => {
   const { push } = useRouter();
   const origin = useOrigin();
+  const { isLoading } = useRequireUser();
   const { mutate, isPending, isError } = usePostEvent();
 
   const {
@@ -43,6 +45,14 @@ const CreateEvent = () => {
       onSuccess: (event) => push(`/events/${event.slug}/ready`),
     });
   };
+
+  if (isLoading) {
+    return (
+      <section id="createEvent">
+        <p className="state">Loading...</p>
+      </section>
+    );
+  }
 
   return (
     <section id="createEvent">

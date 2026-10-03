@@ -78,7 +78,6 @@ const GuestJoin = ({ slug }: IProps) => {
   return (
     <section id="guestJoin">
       <form className="joinCard" onSubmit={handleSubmit(onSubmit)}>
-        <div className="cover">📸</div>
 
         <div className="eventInfo">
           <span className="invited">You are invited to</span>

@@ -2,56 +2,96 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 64px;
+  height: var(--header-h);
+  padding: 0 64px;
   border-bottom: 1px solid var(--border-light);
-  background: #fff;
+  background: var(--paper);
 
   .logo {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    align-items: baseline;
+    gap: 7px;
 
     .dot {
-      width: 14px;
-      height: 14px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--orange);
     }
 
     .name {
-      font-size: 20px;
-      font-weight: 700;
+      font-family: var(--font-display-serif);
+      font-size: 24px;
+      line-height: 1;
       color: var(--text);
     }
   }
 
   .backBtn {
-    padding: 11px 16px;
     font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s var(--ease);
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 14px;
+    font-weight: 500;
+
+    a,
+    .logoutBtn {
+      color: var(--text-muted);
+      transition: color 0.2s var(--ease);
+
+      &:hover {
+        color: var(--text);
+      }
+    }
+
+    .logoutBtn {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .startBtn {
+      padding: 10px 18px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--text);
+      border-radius: 4px;
+      transition: background 0.2s var(--ease);
+
+      &:hover {
+        color: #fff;
+        background: var(--orange);
+      }
+    }
   }
 
   .wall {
     display: flex;
     align-items: center;
-    gap: 20px;
-
-    .stats {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
+    gap: 24px;
 
     .uploadBtn {
-      padding: 11px 18px;
+      padding: 10px 18px;
       font-size: 14px;
       font-weight: 600;
       color: #fff;
-      background: var(--orange);
-      border-radius: 12px;
+      background: var(--text);
+      border-radius: 4px;
+      transition: background 0.2s var(--ease);
+
+      &:hover {
+        background: var(--orange);
+      }
 
       &:disabled {
         opacity: 0.6;
@@ -63,11 +103,20 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 20px 24px;
+    padding: 0 20px;
     border-bottom: none;
 
     .logo .name {
-      font-size: 18px;
+      font-size: 22px;
+    }
+
+    .nav {
+      gap: 16px;
+      font-size: 13px;
+
+      .startBtn {
+        padding: 9px 14px;
+      }
     }
 
     &.hideMobile {

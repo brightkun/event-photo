@@ -60,6 +60,7 @@ export const getPhotoService = async (
   slug: string,
   photoId: string,
   token: string | undefined,
+  isAdmin: boolean,
 ) => {
   const eventId = await getEventId(slug);
   const id = await getPhotoId(eventId, photoId);
@@ -70,13 +71,13 @@ export const getPhotoService = async (
     select
       p.id, p.path, p.width, p.height, p.created_at,
       g.name as guest_name,
-      coalesce(p.guest_id = $2, false) as is_owner,
+      (coalesce(p.guest_id = $2, false) or $3) as is_owner,
       (select count(*)::int from comments where photo_id = p.id) as comments_count
     from photos p
     join guests g on g.id = p.guest_id
     where p.id = $1
     `,
-    [id, guestId],
+    [id, guestId, isAdmin],
   );
 
   const { path, ...photo } = res.rows[0];
@@ -121,18 +122,21 @@ export const deletePhotoService = async (
   slug: string,
   photoId: string,
   token: string | undefined,
+  isAdmin: boolean,
 ) => {
   const eventId = await getEventId(slug);
   const id = await getPhotoId(eventId, photoId);
-  const guestId = await getGuestId(eventId, token);
+
+  // admin удаляет любое фото, гость только своё
+  const guestId = isAdmin ? null : await getGuestId(eventId, token);
 
   const res = await pool.query(
     `
     delete from photos
-    where id = $1 and guest_id = $2
+    where id = $1 and ($3 or guest_id = $2)
     returning id, path
     `,
-    [id, guestId],
+    [id, guestId, isAdmin],
   );
 
   if (!res.rows[0]) {

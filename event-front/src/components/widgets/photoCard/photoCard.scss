@@ -2,52 +2,79 @@
   position: relative;
   display: block;
   width: 100%;
-  min-height: 200px;
-  max-height: 440px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   break-inside: avoid;
   overflow: hidden;
-  background: var(--orange-light);
-  border-radius: 20px;
+  background: var(--placeholder);
+  border-radius: 3px;
 
   img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: photoIn 0.6s var(--ease) both;
+    transition: transform 0.5s var(--ease);
   }
 
   .reaction {
     position: absolute;
-    left: 12px;
-    bottom: 12px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px 12px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-    background: #fff;
-    border-radius: 100px;
+    gap: 5px;
+    padding: 28px 10px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(to top, rgba(20, 16, 12, 0.55), transparent);
+    opacity: 0;
+    transition: opacity 0.25s var(--ease);
+  }
 
-    .emoji {
-      font-size: 12px;
+  @media (hover: hover) {
+    &:hover img {
+      transform: scale(1.03);
     }
+
+    &:hover .reaction {
+      opacity: 1;
+    }
+  }
+
+  /* на телефоне наведения нет, поэтому счётчик показываем всегда */
+  @media (hover: none) {
+    .reaction {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes photoIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photoCard img {
+    animation: none;
+    transition: none;
   }
 }
 
 @media (max-width: 768px) {
   .photoCard {
-    min-height: 140px;
-    margin-bottom: 10px;
-    border-radius: 16px;
+    margin-bottom: 6px;
 
     .reaction {
-      left: 8px;
-      bottom: 8px;
-      padding: 4px 9px;
-      font-size: 12px;
+      padding: 22px 8px 6px;
+      font-size: 11px;
     }
   }
 }

@@ -1,7 +1,7 @@
-import CreateEvent from "@/components/pages/createEvent/CreateEvent";
+import Landing from "@/components/pages/landing/Landing";
 
 const page = () => {
-  return <CreateEvent />;
+  return <Landing />;
 };
 
 export default page;

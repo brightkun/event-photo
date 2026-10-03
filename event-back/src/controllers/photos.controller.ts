@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { AuthRequest } from "../middlewares/auth";
 import {
   deletePhotoService,
   getPhotoService,
@@ -25,14 +26,15 @@ export const getPhotosController = async (
 };
 
 export const getPhotoController = async (
-  req: Request<{ slug: string; photoId: string }>,
+  req: AuthRequest<{ slug: string; photoId: string }>,
   res: Response,
   next: NextFunction,
 ) => {
   try {
     const { slug, photoId } = req.params;
     const token = req.header("x-guest-token");
-    const result = await getPhotoService(slug, photoId, token);
+    const isAdmin = req.user?.role === "admin";
+    const result = await getPhotoService(slug, photoId, token, isAdmin);
 
     res.status(200).json({
       message: "photo",
@@ -44,14 +46,15 @@ export const getPhotoController = async (
 };
 
 export const deletePhotoController = async (
-  req: Request<{ slug: string; photoId: string }>,
+  req: AuthRequest<{ slug: string; photoId: string }>,
   res: Response,
   next: NextFunction,
 ) => {
   try {
     const { slug, photoId } = req.params;
     const token = req.header("x-guest-token");
-    const result = await deletePhotoService(slug, photoId, token);
+    const isAdmin = req.user?.role === "admin";
+    const result = await deletePhotoService(slug, photoId, token, isAdmin);
 
     res.status(200).json({
       message: "Deleted successfully",

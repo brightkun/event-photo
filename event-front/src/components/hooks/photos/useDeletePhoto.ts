@@ -4,7 +4,7 @@ import { api } from "../api/api";
 interface IDeleteParams {
   slug: string;
   photoId: string;
-  token: string;
+  token?: string;
 }
 
 export const useDeletePhoto = () => {
@@ -13,7 +13,7 @@ export const useDeletePhoto = () => {
   return useMutation({
     mutationFn: async ({ slug, photoId, token }: IDeleteParams) => {
       const response = await api.delete(`/events/${slug}/photos/${photoId}`, {
-        headers: { "x-guest-token": token },
+        headers: token ? { "x-guest-token": token } : {},
       });
       return response.data;
     },

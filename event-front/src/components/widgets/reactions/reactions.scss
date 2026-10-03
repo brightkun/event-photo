@@ -5,21 +5,34 @@
   .pill {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     padding: 8px 14px;
     font-size: 14px;
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
     color: var(--text);
-    background: #fff;
+    background: transparent;
     border: 1px solid var(--border);
-    border-radius: 100px;
+    border-radius: 4px;
+    transition:
+      border-color 0.2s var(--ease),
+      background 0.2s var(--ease),
+      transform 0.15s var(--ease);
 
     .emoji {
-      font-size: 13px;
+      font-size: 15px;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--text);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.96);
     }
 
     &.active {
-      color: var(--orange);
+      color: var(--text);
       background: var(--orange-light);
       border-color: var(--orange);
     }
